@@ -1,0 +1,104 @@
+<!-- self.cloud.com-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>cloud云</title>
+    <script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+<script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+<script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+<script src="https://cdn.staticfile.org/jquery/2.1.4/jquery.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" 
+    integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
+<link rel="stylesheet" href="./css/site-menu.css">
+<script type="text/javascript">
+    function login(){
+        var username = document.getElementById("username").val();
+        var password = document.getElementById("password").val();
+        var messageParent = document.getElementById("loginform");
+        var inputUser = document.getElementById("username");
+        if(username == ""){
+            messageParent.removeChild(message);
+            var message = document.createElement("span");
+            message.setAttribute("class", "pure-form-message-inline");
+            message.setAttribute("id", "message-name");
+            message.innerHTML = "username should not be empty";
+            message.insertAfter(inputUser);
+        }
+        else if(username.length > 10){
+            mValue = "the length of username should not be more than ten";
+        }
+        else{
+            $.ajax({
+            url:"https://cloud.self.com/login.html",
+            data:{username:username, password:password},
+            type:"GET", 
+            success:function(data){
+                if(data.code == 1){
+                    var id = data.userId;
+                    window.location.href = "https://cloud.self.com/cloud/user" + "?id=" + id;
+                }else{
+                    alert(data.msg);
+                }
+            }
+
+           })
+        }
+        
+    }
+    function init(obj){
+        obj.value = obj.value.replace(/[^\w\.\/]/ig,'');
+        
+        }
+
+    
+    
+</script>
+</head>
+<body>
+<div id="menu">
+    <div class="pure-menu">
+        <a class="pure-menu-heading">Cloud</a>
+        <ul class="pure-menu-list">
+            <li class="pure-menu-item">
+                <a href="http://localhost:8080/cloud/overview.html" class="pure-menu-link">Overview</a>
+            </li>
+            <li class="pure-menu-item">
+                <a href="http://localhost:8080/cloud/account/signup.html" class="pure-menu-link">Sign Up</a>
+            </li>
+            <li class="pure-menu-item">
+                <a class="pure-menu-link" href="http://localhost:8080/cloud/login.html">Sign In</a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div id="main-content">
+<div class="header">
+<h1>Cloud Login</h1>
+<h2>Self-made cloud platform</h2>
+</div>
+<div class="content">
+        <form id = "loginform" class="pure-form pure-form-aligned">
+                <fieldset>
+                    <div class="pure-control-group">
+                        <label for="username">username</label>
+                        <input type = "text" id="username" name="username" placeholder="username"
+                        onkeyup="init(this);" style="ime-mode:disabled;vertical-align:middle"/>
+                    </div>
+                    <br>
+                    <div class="pure-control-group">
+                        <label for="password">password</label>
+                        <input type="text" id="password" name="password " placeholder="password"
+                        onkeyup="init(this);" style="ime-mode:disabled;vertical-align:middle"/>
+                    </div>
+                    <div class="pure-controls">
+                            <button onclick="login()" class="pure-button pure-button-primary">sign in</button>
+                    </div>
+                        
+                </fieldset>     
+        </form>
+</div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>注册用户</title>
+    <script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+<script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+<script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+<script src="https://cdn.staticfile.org/jquery/2.1.4/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" 
+    integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
+<link rel="stylesheet" href="../css/site-menu.css">
+    <script>
+        function NewAccount(){
+            var username = document.getElementById("username");
+            var password = document.getElementById("password");
+            $.ajax({
+                url:"https://cloud.self.com/apply",
+                data:{username:username, password:password},
+                type:"GET",
+                success:function(data){
+                    alert(data.msg);
+                    if(data.code == 1){
+                        window.location.href = "https://cloud.self.com/login";
+                    }
+                    
+                }
+            })
+        }
+        function init(obj){
+        obj.value = obj.value.replace(/[^\w\.\/]/ig,'');
+        
+        }
+    </script>
+</head> 
+<body>
+        <div id="menu">
+                <div class="pure-menu">
+                    <a class="pure-menu-heading">Cloud</a>
+                    <ul class="pure-menu-list">
+                        <li class="pure-menu-item">
+                            <a href="http://localhost:8080/overview.html" class="pure-menu-link">Overview</a>
+                        </li>
+                        <li class="pure-menu-item">
+                            <a href="http://localhost:8080/account/signup.html" class="pure-menu-link">Sign Up</a>
+                        </li>
+                        <li class="pure-menu-item">
+                            <a class="pure-menu-link" href="http://localhost:8080/cloud/login.html">Sign In</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        <div id="main-content">
+                <div class="header">
+                <h1>Cloud Sigun Up</h1>
+                <h2>Self-made cloud platform</h2>
+                </div>
+                <div class="content">
+                        <form id = "signupform" class="pure-form pure-form-aligned">
+                                <fieldset>
+                                    <div class="pure-control-group">
+                                        <label for="username">username</label>
+                                        <input type = "text" id="username" name="username" placeholder="username"
+                                        onkeyup="init(this);" style="ime-mode:disabled;vertical-align:middle"/>
+                                        <span class="pure-form-message-inline" id="message-name">required</span>
+                                        <span class="pure-form-message-inline">* no more ten characters</span>
+                                        <span class="pure-form-message-inline">* Only English allowed</span>
+                                    </div>
+                                    <br>
+                                    <div class="pure-control-group">
+                                        <label for="password">password</label>
+                                        <input type="text" id="password" name="password " placeholder="password"
+                                        onkeyup="init(this);" style="ime-mode:disabled;vertical-align:middle"/>
+                                        <span class="pure-form-message-inline" id="message-passwrd">required</span>
+                                        <span class="pure-form-message-inline">* no more ten characters</span>
+                                    </div>
+                                    <div class="pure-controls">
+                                            <label for="cb" class="pure-checkbox">
+                                                <input id="cb" type="checkbox"> I've seen and agreed all policies
+                                            </label>
+                                            <button onclick="NewAccount()" class="pure-button pure-button-primary">sign up</button>
+                                    </div>
+                                        
+                                </fieldset>     
+                        </form>
+                </div>
+                
+                </div>
+</body>
+</html>
